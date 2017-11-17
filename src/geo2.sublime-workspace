@@ -545,7 +545,6 @@
 			"settings":
 			{
 				"buffer_size": 2005,
-				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
@@ -757,7 +756,7 @@
 	],
 	"find":
 	{
-		"height": 74.0
+		"height": 55.0
 	},
 	"find_in_files":
 	{
