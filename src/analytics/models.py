@@ -5,26 +5,26 @@ from .utils import get_client_city_data,get_client_ip
 
 # Create your models here.
 class UserSessionManager(models.Manager):
-	def create_new(self,user,session_key=None,ip_address=None):
+	def create_new(self,user,session_key=None,ip_address=None,city_data=None):
 		session_new=self.model()
 		session_new.user=user
 		session_new.session_key=session_key
 		if ip_address is not None:
 			session_new.ip_address=ip_address
-			city_data=get_client_city_data(ip_address)
-			session_new.city_data=city_data
-			try:
-				city=city_data['city']
-			except:
-				city=None
-			session_new.city=city
-			try:
-				country=city_data['country_name']
-			except:
-				country=None
-			session_new.country=country
-			session_new.save()
-			return session_new
+			if city_data:
+				session_new.city_data=city_data
+				try:
+					city=city_data['city']
+				except:
+					city=None
+				session_new.city=city
+				try:
+					country=city_data['country_name']
+				except:
+					country=None
+				session_new.country=country
+				session_new.save()
+				return session_new
 		return None
 
 
@@ -53,10 +53,13 @@ def user_logged_in_receiver(sender,request,*args,**kwargs):
 	user = sender
 	ip_address = get_client_ip(request)
 	session_key=request.session.session_key
+	city_data=get_client_city_data(ip_address)
+	request.session['CITY']=str(city_data.get('city','New York'))
 	UserSession.objects.create_new(
 		user=user,
 		session_key=session_key,
 		ip_address = ip_address,
+		city_data=city_data
 		)
 
 

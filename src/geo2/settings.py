@@ -29,6 +29,10 @@ ALLOWED_HOSTS = []
 GEOIP_PATH=os.path.join(BASE_DIR,'geoip')
 GEO_DEFAULT_IP='72.14.207.99'
 
+YELP_CLIENT_ID='i6tV7wSxjC4FI5Yyf8DIEQ'
+YELP_CLIENT_SECRET='BEglifXmpwBSOwZ6KX5SYjbhnLVwkmcCaU6QDdMroi3l0InrTah5J5OoPZIyJvKW'
+
+GOOGLE_MAPS_API_KEY='AIzaSyAj0zOHbdYX9JVhii6EQ8t8I58MM6v1s7M'
 LOGOUT_REDIRECT_URL='/login/'
 LOGIN_REDIRECT_URL='/'
 # Application definition
@@ -42,6 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'analytics',
     'accounts',
+    'search',
 ]
 
 MIDDLEWARE = [

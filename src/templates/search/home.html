@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block head_title %}Search | {{ block.super }}{% endblock head_title %}
+{% block content %}
+<div class='row'>
+	<div class='col-sm-6'>
+<h1>Search</h1>
+{% for buz in results.businesses %}
+<li>
+	<a href='#' class='buz-item' 
+				data-name="{{ buz.name }}"
+				data-lat="{{ buz.coordinates.latitude }}"
+				data-lng="{{ buz.coordinates.longitude }}"
+				data-address="{{ buz.location.display_address.0 }} {{ buz.location.display_address.1 }}"
+				>{{ buz.name }},{{ buz.location.city}}</a><br/>
+</li>
+{% endfor %}
+</div>
+<div class='col-sm-6'>
+    <h3>My Google Maps Demo</h3>
+    <div id="map"></div>
+    <script>
+    var locations=[
+    	{% for buz in results.businesses %}
+    		{
+    			lat:{{ buz.coordinates.latitude }}, 
+    			lng:{{ buz.coordinates.longitude }},
+    			name:"{{ buz.name }}",
+    			address:"{{ buz.location.display_address.0 }} {{ buz.location.display_address.1 }}"
+    		},
+    	{% endfor %}
+    		 ];
+    var map;
+    var markers;
+    var infoWindow;
+      function initMap() {
+        var uluru = {lat: {{ results.businesses.0.coordinates.latitude }}, lng:{{ results.businesses.0.coordinates.longitude }}};
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 12,
+          center: uluru
+        });
+        infoWindow = new google.maps.InfoWindow()
+
+        function createMarker(latlng,name,address){
+        	var html = '<b>'+name+'</b><br/>'+address;
+        	var marker = new google.maps.Marker({
+          		position: latlng,
+          		map: map
+        	});
+        	google.maps.event.addListener(marker,'click',function(){
+        		infoWindow.setContent(html)
+        		infoWindow.open(map,marker)
+        	});
+        };
+        if (locations.length>0){
+        	for (var i=0;i<locations.length;i++){
+        		var obj=locations[i]
+        		var latlng={lat:obj.lat,lng:obj.lng}
+        		createMarker(latlng,obj.name,obj.address)
+
+        	}
+        }
+      }
+    </script>
+</div>
+</div>
+{% endblock content %}
