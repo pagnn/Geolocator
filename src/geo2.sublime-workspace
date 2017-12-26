@@ -520,10 +520,19 @@
 	"buffers":
 	[
 		{
-			"file": "accounts/views.py",
+			"file": "templates/base.html",
 			"settings":
 			{
-				"buffer_size": 541,
+				"buffer_size": 1399,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "templates/search/home.html",
+			"settings":
+			{
+				"buffer_size": 2005,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -534,28 +543,6 @@
 			{
 				"buffer_size": 489,
 				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "{% extends 'base.html' %}\n{% block head_title %}Search | {{ block.super }}{% endblock head_title %}\n{% block content %}\n<div class='row'>\n\t<div class='col-sm-6'>\n<h1>Search</h1>\n{% for buz in results.businesses %}\n<li>\n\t<a href='#' class='buz-item' \n\t\t\t\tdata-name=\"{{ buz.name }}\"\n\t\t\t\tdata-lat=\"{{ buz.coordinates.latitude }}\"\n\t\t\t\tdata-lng=\"{{ buz.coordinates.longitude }}\"\n\t\t\t\tdata-address=\"{{ buz.location.display_address.0 }} {{ buz.location.display_address.1 }}\"\n\t\t\t\t>{{ buz.name }},{{ buz.location.city}}</a><br/>\n</li>\n{% endfor %}\n</div>\n<div class='col-sm-6'>\n    <h3>My Google Maps Demo</h3>\n    <div id=\"map\"></div>\n    <script>\n    var locations=[\n    \t{% for buz in results.businesses %}\n    \t\t{\n    \t\t\tlat:{{ buz.coordinates.latitude }}, \n    \t\t\tlng:{{ buz.coordinates.longitude }},\n    \t\t\tname:\"{{ buz.name }}\",\n    \t\t\taddress:\"{{ buz.location.display_address.0 }} {{ buz.location.display_address.1 }}\"\n    \t\t},\n    \t{% endfor %}\n    \t\t ];\n    var map;\n    var markers;\n    var infoWindow;\n    function initMap() {\n        var uluru = {lat: {{ results.businesses.0.coordinates.latitude }}, lng:{{ results.businesses.0.coordinates.longitude }}};\n        map = new google.maps.Map(document.getElementById('map'), {\n          zoom: 12,\n          center: uluru\n        });\n        infoWindow = new google.maps.InfoWindow()\n\n        function createMarker(latlng,name,address){\n        \tvar html = '<b>'+name+'</b><br/>'+address;\n        \tvar marker = new google.maps.Marker({\n          \t\tposition: latlng,\n          \t\tmap: map\n        \t});\n        \tgoogle.maps.event.addListener(marker,'click',function(){\n        \t\tinfoWindow.setContent(html)\n        \t\tinfoWindow.open(map,marker)\n        \t});\n        };\n        if (locations.length>0){\n        \tfor (var i=0;i<locations.length;i++){\n        \t\tvar obj=locations[i]\n        \t\tvar latlng={lat:obj.lat,lng:obj.lng}\n        \t\tcreateMarker(latlng,obj.name,obj.address)\n\n        \t}\n        }\n      }\n    </script>\n</div>\n</div>\n{% endblock content %}",
-			"file": "templates/search/home.html",
-			"file_size": 2072,
-			"file_write_time": 131553515919728537,
-			"settings":
-			{
-				"buffer_size": 2005,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "<html>\n\t<head>\n\t\t<title>{% block head_title %}GeoLocator{% endblock head_title %}</title>\n\t\t<link rel=\"stylesheet\" href=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css\" integrity=\"sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb\" crossorigin=\"anonymous\">\n\t\t<link href=\"https://cdn.bootcss.com/bootstrap/4.0.0-alpha.6/css/bootstrap-grid.min.css\" rel=\"stylesheet\">\n\t\t<style>\n      \t\t#map {\n        \t\theight: 400px;\n        \t\twidth: 100%;\n       \t\t\t}\n    \t</style>\n\t</head>\n\t<body>\n\t\t<div class='container-fluid'>\n\t\t{% block content %}\n\t\t{% endblock content %}\n\t</div>\n\t\t<script async defer src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyAj0zOHbdYX9JVhii6EQ8t8I58MM6v1s7M&callback=initMap\"\n  type=\"text/javascript\"></script>\n\t\t<script src=\"https://code.jquery.com/jquery-3.2.1.slim.min.js\" integrity=\"sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN\" crossorigin=\"anonymous\"></script>\n\t\t<script src=\"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js\" integrity=\"sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh\" crossorigin=\"anonymous\"></script>\n\t\t<script src=\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js\" integrity=\"sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ\" crossorigin=\"anonymous\"></script>\n\t\t{%%}{%%}\n\t</body>\n</html>",
-			"file": "templates/base.html",
-			"file_size": 1422,
-			"file_write_time": 131553486999946420,
-			"settings":
-			{
-				"buffer_size": 1410,
 				"line_ending": "Windows"
 			}
 		}
@@ -625,12 +612,13 @@
 	],
 	"file_history":
 	[
-		"/C/Dev/geo2/src/geo2/settings.py",
 		"/C/Dev/geo2/src/templates/base.html",
-		"/C/Dev/geo2/src/search/utils.py",
-		"/C/Dev/geo2/src/search/views.py",
-		"/C/Dev/geo2/src/geo2/urls.py",
 		"/C/Dev/geo2/src/templates/search/home.html",
+		"/C/Dev/geo2/src/search/views.py",
+		"/C/Dev/geo2/src/accounts/views.py",
+		"/C/Dev/geo2/src/geo2/settings.py",
+		"/C/Dev/geo2/src/search/utils.py",
+		"/C/Dev/geo2/src/geo2/urls.py",
 		"/C/Dev/geo2/src/analytics/models.py",
 		"/C/Dev/geo2/src/analytics/utils.py",
 		"/C/Dev/geo2/src/analytics/admin.py",
@@ -639,7 +627,6 @@
 		"/C/Dev/geo2/src/analytics/signals.py",
 		"/C/Dev/geo2/src/accounts/templates/registration/login.html",
 		"/C/Dev/geo2/src/accounts/forms.py",
-		"/C/Dev/geo2/src/accounts/views.py",
 		"/C/Dev/mysite/src/account/admin.py",
 		"/C/Dev/mysite/src/templates/account/register.html",
 		"/C/Dev/mysite/src/templates/footer.html",
@@ -794,68 +781,39 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "accounts/views.py",
+					"file": "templates/base.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 541,
+						"buffer_size": 1399,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								302,
-								302
+								1382,
+								1382
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "search/views.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 489,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								426,
-								426
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 162.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
 					"file": "templates/search/home.html",
 					"semi_transient": false,
 					"settings":
@@ -867,47 +825,50 @@
 						"selection":
 						[
 							[
-								625,
-								625
+								137,
+								137
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 1048.0,
+						"translation.y": 1806.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 3,
-					"file": "templates/base.html",
+					"buffer": 2,
+					"file": "search/views.py",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1410,
+						"buffer_size": 489,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1387,
-								1387
+								104,
+								104
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax"
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1290.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
